@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Portfolio Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #081b29;
+            color: #eddcd2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(17, 46, 66, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 171, 240, 0.25);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .logo span {
+            color: #00abf0;
+        }
+        .header p {
+            color: #a4b3c6;
+            font-size: 14px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #eddcd2;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00abf0;
+            font-size: 16px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: rgba(8, 27, 41, 0.8);
+            border: 1px solid rgba(0, 171, 240, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            border-color: #00abf0;
+            box-shadow: 0 0 10px rgba(0, 171, 240, 0.3);
+        }
+        .btn-submit {
+            background: #00abf0;
+            color: #081b29;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background: transparent;
+            color: #00abf0;
+            box-shadow: 0 0 15px rgba(0, 171, 240, 0.4);
+            border: 2px solid #00abf0;
+            padding: 11px; /* Account for border width */
+        }
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #a4b3c6;
+        }
+        .footer a {
+            color: #00abf0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .footer a:hover {
+            text-shadow: 0 0 10px rgba(0, 171, 240, 0.5);
+        }
+        /* Session messages styling */
+        .alerts {
+            margin-bottom: 20px;
+        }
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .alert-success {
+            background: rgba(40, 167, 69, 0.15);
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+        .alert-error, .alert-danger {
+            background: rgba(220, 53, 69, 0.15);
+            border: 1px solid #dc3545;
+            color: #dc3545;
+        }
+        .alert-info {
+            background: rgba(23, 162, 184, 0.15);
+            border: 1px solid #17a2b8;
+            color: #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="#" class="logo">Portfolio<span>Hub</span></a>
+            <p>Welcome back! Please sign in to manage your portfolio</p>
+        </div>
+
+        {% if messages %}
+            <div class="alerts">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {% if message.tags == 'success' %}
+                            <i class="fa-solid fa-circle-check"></i>
+                        {% elif message.tags == 'error' or message.tags == 'danger' %}
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        {% else %}
+                            <i class="fa-solid fa-circle-info"></i>
+                        {% endif %}
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+
+        <div class="footer">
+            Don't have an account? <a href="{% url 'register' %}">Register Now</a>
+        </div>
+    </div>
+</body>
+</html>

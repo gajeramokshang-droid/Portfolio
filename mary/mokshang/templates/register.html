@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Account | Portfolio Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #081b29;
+            color: #eddcd2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(17, 46, 66, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 171, 240, 0.25);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            transition: 0.3s;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .logo span {
+            color: #00abf0;
+        }
+        .header p {
+            color: #a4b3c6;
+            font-size: 14px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #eddcd2;
+        }
+        .input-wrapper {
+            position: relative;
+        }
+        .input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00abf0;
+            font-size: 16px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background: rgba(8, 27, 41, 0.8);
+            border: 1px solid rgba(0, 171, 240, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .form-control:focus {
+            border-color: #00abf0;
+            box-shadow: 0 0 10px rgba(0, 171, 240, 0.3);
+        }
+        .help-text {
+            font-size: 11px;
+            color: #8899a6;
+            margin-top: 3px;
+        }
+        .errorlist {
+            color: #ff4b4b;
+            list-style: none;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        .btn-submit {
+            background: #00abf0;
+            color: #081b29;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            background: transparent;
+            color: #00abf0;
+            box-shadow: 0 0 15px rgba(0, 171, 240, 0.4);
+            border: 2px solid #00abf0;
+            padding: 11px; /* Account for border width */
+        }
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #a4b3c6;
+        }
+        .footer a {
+            color: #00abf0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .footer a:hover {
+            text-shadow: 0 0 10px rgba(0, 171, 240, 0.5);
+        }
+        /* Top general errors */
+        .non-field-errors {
+            background: rgba(255, 75, 75, 0.1);
+            border: 1px solid #ff4b4b;
+            padding: 12px;
+            border-radius: 8px;
+            color: #ff4b4b;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="#" class="logo">Portfolio<span>Hub</span></a>
+            <p>Sign up to build your developer portfolio</p>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div class="non-field-errors">
+                {% for error in form.non_field_errors %}
+                    <p><i class="fa-solid fa-triangle-exclamation"></i> {{ error }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_username">Username</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-user"></i>
+                    {{ form.username }}
+                </div>
+                {% if form.username.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.username.errors %}/
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                    {{ form.email }}
+                </div>
+                {% if form.email.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-lock"></i>
+                    {{ form.password }}
+                </div>
+                {% if form.password.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_confirm_password">Confirm Password</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-circle-check"></i>
+                    {{ form.confirm_password }}
+                </div>
+                {% if form.confirm_password.errors %}
+                    <ul class="errorlist">
+                        {% for error in form.confirm_password.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn-submit">Sign Up</button>
+        </form>
+
+        <div class="footer">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+</body>
+</html>

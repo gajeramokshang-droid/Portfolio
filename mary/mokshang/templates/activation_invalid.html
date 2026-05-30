@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invalid Activation Link | Portfolio Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #081b29;
+            color: #eddcd2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(17, 46, 66, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 75, 75, 0.2);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .icon {
+            font-size: 60px;
+            color: #ff4b4b;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 16px;
+            color: #a4b3c6;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff4b4b;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 2px solid #ff4b4b;
+        }
+        .btn:hover {
+            background: transparent;
+            color: #ff4b4b;
+            box-shadow: 0 0 15px rgba(255, 75, 75, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <i class="fa-solid fa-circle-xmark"></i>
+        </div>
+        <h2>Invalid Activation Link</h2>
+        <p>The activation link is invalid, expired, or has already been used. Please try registering again or contact support.</p>
+        <a href="{% url 'register' %}" class="btn">Register Again</a>
+    </div>
+</body>
+</html>

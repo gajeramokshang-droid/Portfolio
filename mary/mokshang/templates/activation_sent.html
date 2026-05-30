@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activation Email Sent | Portfolio Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #081b29;
+            color: #eddcd2;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(17, 46, 66, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 171, 240, 0.2);
+            padding: 40px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .icon {
+            font-size: 60px;
+            color: #00abf0;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+        h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 16px;
+            color: #a4b3c6;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        .email-highlight {
+            color: #00abf0;
+            font-weight: 600;
+        }
+        .btn {
+            display: inline-block;
+            background: #00abf0;
+            color: #081b29;
+            padding: 12px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            border: 2px solid #00abf0;
+        }
+        .btn:hover {
+            background: transparent;
+            color: #00abf0;
+            box-shadow: 0 0 15px rgba(0, 171, 240, 0.4);
+        }
+        .debug-box {
+            margin-top: 30px;
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px dashed #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        .debug-box h4 {
+            color: #ffc107;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .debug-box p {
+            font-size: 14px;
+            color: #eddcd2;
+            margin-bottom: 12px;
+        }
+        .debug-link {
+            display: inline-block;
+            background: #ffc107;
+            color: #212529;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+        .debug-link:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">
+            <i class="fa-solid fa-paper-plane"></i>
+        </div>
+        <h2>Verification Email Sent!</h2>
+        <p>We've sent a verification link to <span class="email-highlight">{{ email }}</span>. Please check your inbox and click the link to activate your account.</p>
+        
+        <a href="{% url 'login' %}" class="btn">Proceed to Login</a>
+
+        {% if debug_mode %}
+        <div class="debug-box">
+            <h4><i class="fa-solid fa-triangle-exclamation"></i> Developer Debug Helper</h4>
+            <p>Because you are in local development (DEBUG = True) and we are using the console email backend, you can click the generated verification link below directly instead of copying it from the console:</p>
+            <a href="{{ activation_link }}" class="debug-link" target="_blank">Activate Account Now <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
